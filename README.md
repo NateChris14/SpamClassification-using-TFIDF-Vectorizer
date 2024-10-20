@@ -1,6 +1,6 @@
-3Spam Detection using SVM
+#Spam Detection using SVM
 This project implements a machine learning pipeline to detect spam messages using Support Vector Machines (SVM). The model leverages techniques such as TF-IDF Vectorization and SMOTE for handling class imbalance to improve prediction accuracy.
-
+<br>
 Table of Contents
 Introduction
 Dataset
