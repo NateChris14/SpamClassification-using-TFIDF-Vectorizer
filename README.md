@@ -1,96 +1,83 @@
-
 # Spam Detection using SVM
 
 This project implements a machine learning pipeline to detect spam messages using Support Vector Machines (SVM). The model leverages techniques such as TF-IDF Vectorization and SMOTE for handling class imbalance to improve prediction accuracy.
 
-
+---
 
 ## Table of Contents
+- [Introduction](#introduction)
+- [Dataset](#dataset)
+- [Installation](#installation)
+- [Project Workflow](#project-workflow)
+- [Deployment](#deployment)
+- [Results](#results)
+- [Future Work](#future-work)
+- [Contributing](#contributing)
+- [License](#license)
 
-- Introduction
-- Dataset
-- Installation
-- Project Workflow
-- Results
-- Future Work
-- Contributing
-- License
+---
 
-# Introduction
+## Introduction
 
-Spam detection is an important task in natural language processing (NLP) to filter out unwanted messages. This project demonstrates how to build a spam classifier using SVM and various preprocessing techniques to improve model performance.
+Spam detection is an essential task in natural language processing (NLP) to filter out unwanted messages. This project demonstrates how to build and deploy a spam classifier using SVM and various preprocessing techniques to improve model performance.
 
-# Dataset
+## Dataset
 
-The dataset used in this project is a CSV file named spam.csv, which contains two main columns:
+The dataset used in this project is a CSV file named `spam.csv`, which contains two main columns:
+- `label`: Indicates whether the message is "spam" or "ham" (not spam).
+- `message`: The actual text message.
 
-- label: Indicates whether the message is "spam" or "ham" (not spam).
-- message: The actual text message.
 Ensure that the dataset file is uploaded before running the code.
 
-# Installation
+## Installation
 
 #### Clone this repository
-
 ```bash
   git clone https://github.com/NateChris14/SpamClassification-using-TFIDF-Vectorizer.git
-
 ```
-#### Navigate to project directory
 
+#### Navigate to project directory
 ```bash
   cd SpamClassification-using-TFIDF-Vectorizer
-
 ```
 
 #### Install the required dependencies
-
 ```bash
-pip install pandas scikit-learn imbalanced-learn seaborn numpy
-
+pip install -r requirements.txt
 ```
-# Project Workflow
 
-- Importing Libraries: Import necessary Python libraries for data manipulation, model training, and evaluation.
-- Loading the Dataset: Load and preprocess the dataset to prepare it for training.
-- Data Preparation: Keep only the relevant columns (label and message),Visualize and analyze class distribution
-- Splitting Data: Perform a stratified train-test split to maintain the balance of classes across training and testing datasets.
-- Text Vectorization: Convert text data to numerical format using TF-IDF Vectorizer.
-- Handling Class Imbalance: Use SMOTE to balance the dataset by generating synthetic samples of the minority class.
-- Training the Model: Train an SVM model on the balanced dataset.
-- Evaluating the Model: Measure model performance using classification reports and confusion matrices.
+## Project Workflow
 
-## Example Code Snippet
+1. **Import Libraries:** Import necessary Python libraries for data manipulation, model training, and evaluation.
+2. **Load Dataset:** Load and preprocess the dataset to prepare it for training.
+3. **Data Preparation:** Keep only the relevant columns (`label` and `message`). Visualize and analyze class distribution.
+4. **Split Data:** Perform a stratified train-test split to maintain the balance of classes across training and testing datasets.
+5. **Text Vectorization:** Convert text data to numerical format using TF-IDF Vectorizer.
+6. **Handle Class Imbalance:** Use SMOTE to balance the dataset by generating synthetic samples of the minority class.
+7. **Train Model:** Train an SVM model on the balanced dataset.
+8. **Evaluate Model:** Measure model performance using classification reports and confusion matrices.
 
+## Deployment
 
-```python
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.svm import SVC
-from imblearn.over_sampling import SMOTE
+This project has been deployed using Flask and Heroku to make the spam detection model accessible as a web application.
 
-# Initialize TF-IDF Vectorizer
-tfidf_vectorizer = TfidfVectorizer(stop_words='english', ngram_range=(1,3), max_df=0.2)
-X_train_count = tfidf_vectorizer.fit_transform(X_train)
-X_test_count = tfidf_vectorizer.transform(X_test)
+### Steps to Deploy
+1. **Create a Flask Application:**
+   - Implement endpoints for predictions and integrate the trained SVM model.
 
-# Apply SMOTE to handle class imbalance
-smote = SMOTE(sampling_strategy='minority', random_state=42)
-X_train_smote, y_train_smote = smote.fit_resample(X_train_count, y_train)
+2. **Procfile:** Include a `Procfile` to define the entry point for the Heroku app.
 
-# Train the SVM Model
-svm_model = SVC(kernel='linear', random_state=42)
-svm_model.fit(X_train_smote, y_train_smote)
+3. **requirements.txt:** Ensure all necessary dependencies are listed in the `requirements.txt` file.
 
-# Evaluate the model
-y_pred = svm_model.predict(X_test_count)
-print("Classification Report:\n", classification_report(y_test, y_pred))
+4. **Heroku Deployment:**
+   - Use the following commands to deploy:
+     ```bash
+     heroku create
+     git push heroku main
+     ```
 
-```
-    
-# Results
-
-The model achieved the following performance metrics:
-
+5. **Access Application:**
+   - Once deployed, access the application via the Heroku URL provided.
 
 ## Results
 
@@ -104,19 +91,24 @@ The model achieved the following performance metrics:
 | **Macro Avg**     | 0.9839    | 0.9663  | 0.9748   | 1393    |
 | **Weighted Avg**  | 0.9884    | 0.9885  | 0.9884   | 1393    |
 
-### Confusion matrix
-
-```lua
+### Confusion Matrix
+```plaintext
 [[1202    4]
  [  12  175]]
-
 ```
-# Future Work
+
+## Future Work
 
 - Experiment with different machine learning models (e.g., Random Forest, Logistic Regression).
 - Explore more advanced NLP techniques, such as word embeddings.
 - Enhance preprocessing by adding more feature engineering.
+- Optimize the web application for scalability and performance.
 
-# Contributing
+## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request to improve the project.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for more details.
+
